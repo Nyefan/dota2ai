@@ -17,6 +17,7 @@ import se.lu.lucs.dota2.framework.bot.BotCommands.LevelUp;
 import se.lu.lucs.dota2.framework.bot.BotCommands.Select;
 import se.lu.lucs.dota2.framework.game.ChatEvent;
 import se.lu.lucs.dota2.framework.game.World;
+import de.lighti.dota2.bot.*;
 
 /**
  * This class uses NanoHTTD to provide a very simple webservice The webservice
@@ -45,13 +46,17 @@ public class Dota2AIService extends NanoHTTPD {
     }
 
     public static void main( String[] args ) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
-        if (args.length < 1) {
+        /*
+    	if (args.length < 1) {
             System.err.println( "First argument must be FQN of your bot class" );
             return;
         }
 
         final Class<Bot> botClass = (Class<Bot>) Class.forName( args[0] );
         new Dota2AIService( botClass.newInstance() );
+        */
+    	
+        new Dota2AIService(new Lina());
 
     }
 
