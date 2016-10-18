@@ -1,5 +1,7 @@
 package se.lu.lucs.dota2.framework.bot;
 
+import com.google.common.collect.ImmutableList;
+
 import se.lu.lucs.dota2.framework.bot.BotCommands.Attack;
 import se.lu.lucs.dota2.framework.bot.BotCommands.Buy;
 import se.lu.lucs.dota2.framework.bot.BotCommands.Cast;
@@ -21,6 +23,16 @@ public abstract class BaseBot implements Bot {
     protected Attack ATTACK = new Attack();
     protected LevelUp LEVELUP = new LevelUp();
     protected Cast CAST = new Cast();
+
+    protected ImmutableList<Integer> levelMap;
+    protected int currentLevel = 0;
+
+    @Override
+    public LevelUp levelUp() {
+        LEVELUP.setAbilityIndex(levelMap.get(currentLevel));
+        currentLevel++;
+        return LEVELUP;
+    }
 
     @Override
     public void onChat( ChatEvent e ) {

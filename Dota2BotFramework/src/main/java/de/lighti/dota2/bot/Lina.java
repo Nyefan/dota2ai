@@ -4,8 +4,8 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.google.common.collect.ImmutableList;
 import se.lu.lucs.dota2.framework.bot.BaseBot;
-import se.lu.lucs.dota2.framework.bot.BotCommands.LevelUp;
 import se.lu.lucs.dota2.framework.bot.BotCommands.Select;
 import se.lu.lucs.dota2.framework.game.Ability;
 import se.lu.lucs.dota2.framework.game.BaseEntity;
@@ -23,9 +23,7 @@ public class Lina extends BaseBot {
     private static final String MY_HERO_NAME = "npc_dota_hero_lina";
 
     private static float distance( BaseEntity a, BaseEntity b ) {
-        final float[] posA = a.getOrigin();
-        final float[] posB = b.getOrigin();
-        return distance( posA, posB );
+        return distance( a.getOrigin(), b.getOrigin() );
     }
 
     private static float distance( float[] posA, float[] posB ) {
@@ -47,31 +45,9 @@ public class Lina extends BaseBot {
     public Lina() {
         System.out.println( "Creating Lina" );
         myLevels = new int[5];
-
+        levelMap = ImmutableList.copyOf(new Integer[]{0,1,0,2,0,3,0,1,1,1,3,1,1,1,4,3,4,4,4,4,4,4,4,4,4});
     }
 
-    @Override
-    public LevelUp levelUp() {
-        LEVELUP.setAbilityIndex( -1 );
-
-        if (myLevels[0] < 4) {
-            LEVELUP.setAbilityIndex( 0 );
-        }
-        else if (myLevels[1] < 4) {
-            LEVELUP.setAbilityIndex( 1 );
-        }
-        else if (myLevels[2] < 4) {
-            LEVELUP.setAbilityIndex( 2 );
-        }
-        else if (myLevels[3] < 3) {
-            LEVELUP.setAbilityIndex( 3 );
-        }
-        else if (myLevels[4] < 10) {
-            LEVELUP.setAbilityIndex( 4 );
-        }
-        System.out.println( "LevelUp " + LEVELUP.getAbilityIndex() );
-        return LEVELUP;
-    }
 
     @Override
     public void onChat( ChatEvent e ) {
